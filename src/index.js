@@ -4,12 +4,12 @@ const helmet = require("helmet");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const middleware = require("./middleware");
-require("dotenv").config();
+const dotenv = require("dotenv");
 const logs = require("./api/logs");
 const app = express();
-
+dotenv.config();
 //connection to database
-mongoose.connect("mongodb+srv://admin:ojhCcntW2VkudXEb@cluster0.pamwj.mongodb.net/trvelLogs?retryWrites=true&w=majority", 
+mongoose.connect(process.env.DATABASE_URL, 
 	{
 		useNewUrlParser: true,
 		useUnifiedTopology:true
@@ -35,5 +35,6 @@ app.use(middleware.errorHandler);
 
 
 app.listen(port,()=>{
-	console.log(`Server is listening on ${port}`)
+	console.log(`Server is listening on ${port}`);
+	
 } );
